@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator()
 
 function MyStack(){
     return(
-        <Stack.Navigator screenOptions={{headerShown: false}} initialRouteName="Drawer">
+        <Stack.Navigator screenOptions={{headerShown: false}} >
             <Stack.Screen name= 'Welcome' component={WelcomeScreen} />
             <Stack.Screen name = 'Login' component={LoginScreen}/>
             <Stack.Screen name = 'Drawer' component={MyDrawer} />

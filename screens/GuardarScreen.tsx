@@ -2,30 +2,48 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 
+import { supabase } from '../supabase/Config'
+
 export default function GuardarScreen() {
   const [ci, setCi] = useState('')
   const [nombre, setNombre] = useState('')
   const [apellido, setApellido] = useState('')
   const [edad, setEdad] = useState('')
 
+
+  async function guardar() {
+
+    const { data, error } = await supabase
+      .from('usuarios')
+      .insert([
+        { 'ci': ci, 'nombre': nombre, 'apellido': apellido, 'edad': edad },
+      ])
+      .select()
+
+  }
+
+
+
+
+
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Guardar</Text>
       <TextInput
         placeholder='CI'
-        style={ styles.input}
+        style={styles.input}
         value={ci}
         onChangeText={setCi}
       />
       <TextInput
         placeholder='Nombre'
-        style={ styles.input}
+        style={styles.input}
         value={nombre}
         onChangeText={setNombre}
       />
       <TextInput
         placeholder='Apellido'
-        style={ styles.input}
+        style={styles.input}
         value={apellido}
         onChangeText={setApellido}
       />
@@ -37,12 +55,10 @@ export default function GuardarScreen() {
       />
       <Button
         title='Guardar'
-        onPress={() => {
-          console.log('Datos guardados:', { ci, nombre, apellido, edad })
-        }}  
-        />
+        onPress={() => guardar() }
+      />
 
-      
+
 
     </View>
   )
